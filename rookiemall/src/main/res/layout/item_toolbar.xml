@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="3dp">
+
+    <ImageView
+        android:id="@+id/iv_back_icon"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/icon_back_32px"
+        android:scaleType="center"
+        android:visibility="gone"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_search_view"
+            android:visibility="gone"
+            app:closeIcon="@drawable/icon_delete_32"
+            app:iconifiedByDefault="false"
+            app:queryHint="请输入搜索内容"
+            app:searchIcon="@drawable/icon_search">
+        </android.support.v7.widget.SearchView>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_rightView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="6dp"
+        android:scaleType="centerCrop"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

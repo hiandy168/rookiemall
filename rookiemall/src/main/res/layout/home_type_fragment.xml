@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.itheima.rookiemall.widget.CustomRecyclerView
+        android:id="@+id/left_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider_layout"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="0dp"
+                android:minHeight="1px"
+                android:padding="0dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.itheima.rookiemall.widget.CustomRecyclerView
+                android:id="@+id/right_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:spanCount="2"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>
+
