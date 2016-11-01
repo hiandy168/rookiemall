@@ -13,14 +13,15 @@ import android.widget.TextView;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
 import com.itheima.rookiemall.bean.HomeBannerBean;
 import com.itheima.rookiemall.bean.HomeListsBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.widget.CustomRecyclerView;
 import com.itheima.rookiemall.widget.CustomToolBar;
@@ -34,6 +35,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 /**
@@ -87,7 +89,7 @@ public class HomeFragment extends BaseFragment {
     public void httpBanner() {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("type", "1");
-        mBannerCall = HttpHelper.getInstance().get(Urls.api_homepage_banner, paramMap, new HttpResponseCall<List<HomeBannerBean>>() {
+        mBannerCall = RetrofitUtils.getAsync( Urls.api_homepage_banner, paramMap, new HttpResponseListener<List<HomeBannerBean>>() {
             @Override
             public void onResponse(List<HomeBannerBean> homeBannerBeans) {
                 for (HomeBannerBean bannerBean : homeBannerBeans) {
@@ -97,18 +99,18 @@ public class HomeFragment extends BaseFragment {
                     mSliderLayout.addSlider(textSliderView);
                 }
                 mSliderLayout.startAutoCycle();
-
             }
         });
     }
 
     private void httpHomeDatas() {
-        mListCall = HttpHelper.getInstance().get(Urls.api_homepage_lists, null, new HttpResponseCall<List<HomeListsBean>>() {
+        mListCall = RetrofitUtils.getAsync(Urls.api_homepage_lists, null, new HttpResponseListener<List<HomeListsBean>>() {
             @Override
             public void onResponse(List<HomeListsBean> homeListsBeen) {
                 new HomeAdapter(mRecyclerView, homeListsBeen);
             }
         });
+
 
     }
 

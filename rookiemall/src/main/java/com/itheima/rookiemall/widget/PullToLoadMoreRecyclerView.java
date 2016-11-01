@@ -2,11 +2,12 @@ package com.itheima.rookiemall.widget;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseLoadMoreRecyclerAdapter;
 import com.itheima.rookiemall.bean.BasePageBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.call.PullToMoreListener;
 
 import java.util.HashMap;
@@ -95,7 +96,7 @@ public abstract class PullToLoadMoreRecyclerView<HttpResponseBean extends BasePa
     private void requestData(final boolean isLoadMore) {
         mParam.put("curPage", String.valueOf(mCurPage));
         mParam.put("pageSize", String.valueOf(mPageSize));
-        mCall = HttpHelper.getInstance().get(getApi(), mParam, new HttpResponseCall<HttpResponseBean>() {
+        mCall = RetrofitUtils.getAsync(getApi(), mParam, new HttpResponseListener<HttpResponseBean>() {
             @Override
             public void onResponse(HttpResponseBean responseBean) {
                 mTotalPage = responseBean.totalPage;
@@ -126,9 +127,9 @@ public abstract class PullToLoadMoreRecyclerView<HttpResponseBean extends BasePa
 
     }
 
-    private HttpResponseCall<HttpResponseBean> mHttpResponseCall;
+    private HttpResponseListener<HttpResponseBean> mHttpResponseCall;
 
-    public void setHttpListener(HttpResponseCall<HttpResponseBean> call) {
+    public void setHttpListener(HttpResponseListener<HttpResponseBean> call) {
         mHttpResponseCall = call;
     }
 

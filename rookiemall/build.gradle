@@ -66,6 +66,7 @@ dependencies {
     //    compile 'com.pingxx:pingpp-bfb-sdk:2.1.+' // 使用百付宝时添加
     //    compile project(':lib:pingpp_one')
     compile project(':lib:pingpp')
-
     compile 'com.bigkoo:pickerview:2.1.1'
+    /*    compile 'com.github.lylandroid:RetrofitUtils:-SNAPSHOT'*/
+    compile project(':retrofitutils')
 }

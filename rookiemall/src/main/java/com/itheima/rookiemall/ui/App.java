@@ -3,6 +3,8 @@ package com.itheima.rookiemall.ui;
 import android.app.Application;
 import android.content.Intent;
 
+import com.itheima.retrofitutils.RetrofitUtils;
+import com.itheima.rookiemall.config.Urls;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -19,6 +21,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         sIntance = this;
+        RetrofitUtils.init(this, Urls.getBaseUrl());
     }
 
     public static App getIntance() {

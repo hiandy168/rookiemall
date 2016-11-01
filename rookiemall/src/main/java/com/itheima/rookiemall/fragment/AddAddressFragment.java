@@ -7,13 +7,14 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.model.IPickerViewData;
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.bean.BaseBean;
 import com.itheima.rookiemall.bean.PickerViewData;
 import com.itheima.rookiemall.bean.ProvinceBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.utils.SPUtils;
@@ -110,7 +111,7 @@ public class AddAddressFragment extends BaseFragment {
         param.put("phone", phone);
         param.put("addr", address + "<" + detailsAddr + ">");
         param.put("zip_code", "1234");
-        HttpHelper.getInstance().post(Urls.api_add_address, param, new HttpResponseCall<BaseBean>() {
+        RetrofitUtils.postAsync(Urls.api_add_address, param, new HttpResponseListener<BaseBean>() {
             @Override
             public void onResponse(BaseBean baseBean) {
                 if (baseBean.isSuccess()) {

@@ -6,13 +6,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.bean.LoginBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.utils.DESUtil;
@@ -28,7 +28,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-import cn.smssdk.gui.RegisterPage;
 
 /**
  * Created by lyl on 2016/10/11.
@@ -193,7 +192,7 @@ public class RegisterFragment extends BaseFragment {
         Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", DESUtil.encode(Constants.DES_KEY, pass));
-        HttpHelper.getInstance().post(Urls.api_register, param, new HttpResponseCall<LoginBean>() {
+        RetrofitUtils.getAsync(Urls.api_register, param, new HttpResponseListener<LoginBean>() {
             @Override
             public void onResponse(LoginBean loginBean) {
                 if (loginBean.status == 1) {

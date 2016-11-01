@@ -6,21 +6,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
 import com.itheima.rookiemall.bean.MyOrderBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.utils.SPUtils;
 import com.itheima.rookiemall.widget.CustomRecyclerView;
 import com.itheima.rookiemall.widget.CustomToolBar;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +77,7 @@ public class MyOrderFragment extends BaseFragment {
         param.put(Constants.USER_ID, SPUtils.getUserId(mContext));
         param.put(Constants.TOKEN, SPUtils.getToken(mContext));
         param.put("status", mStatus);
-        HttpHelper.getInstance().get(Urls.api__order_list, param, new HttpResponseCall<List<MyOrderBean>>() {
+        RetrofitUtils.getAsync(Urls.api__order_list, param, new HttpResponseListener<List<MyOrderBean>>() {
             @Override
             public void onResponse(List<MyOrderBean> myOrderBean) {
                 if (mMyOrderAdapter == null) {

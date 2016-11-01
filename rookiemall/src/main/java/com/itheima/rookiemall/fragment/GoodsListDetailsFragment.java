@@ -3,12 +3,11 @@ package com.itheima.rookiemall.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.itheima.retrofitutils.HttpResponseListener;
 import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.bean.HomeHotBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.utils.UIUtils;
 import com.itheima.rookiemall.widget.CustomRecyclerView;
@@ -117,7 +116,7 @@ public class GoodsListDetailsFragment extends BaseFragment {
 
     @Override
     public void initListener() {
-        mPullMoreView.setHttpListener(new HttpResponseCall<HomeHotBean>() {
+        mPullMoreView.setHttpListener(new HttpResponseListener<HomeHotBean>() {
             @Override
             public void onResponse(HomeHotBean homeHotBean) {
 //                UIUtils.showToast(mContext, mTabLayout, "共有" + homeHotBean.totalCount + "件商品");

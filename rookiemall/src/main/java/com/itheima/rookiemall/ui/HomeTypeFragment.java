@@ -8,14 +8,15 @@ import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
 import com.itheima.rookiemall.bean.HomeBannerBean;
 import com.itheima.rookiemall.bean.HomeHotBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.widget.CustomRecyclerView;
 import com.itheima.rookiemall.widget.CustomToolBar;
@@ -112,7 +113,7 @@ public class HomeTypeFragment extends BaseFragment {
 
 
     public void requestLeftData() {
-        mCall = HttpHelper.getInstance().get(Urls.api_hometype_left_lists, null, new HttpResponseCall<List<LeftBean>>() {
+        mCall = RetrofitUtils.getAsync(Urls.api_hometype_left_lists, null, new HttpResponseListener<List<LeftBean>>() {
             @Override
             public void onResponse(List<LeftBean> leftBeen) {
                 mLeftAdapter = new BaseRecyclerAdapter(mLeftRecyclerView, R.layout.item_hometype_left, leftBeen);
@@ -132,7 +133,7 @@ public class HomeTypeFragment extends BaseFragment {
     public void requestBanner() {
         Map<String, Object> param = new HashMap<>();
         param.put("type", String.valueOf(1));
-        HttpHelper.getInstance().get(Urls.api_homepage_banner, param, new HttpResponseCall<List<HomeBannerBean>>() {
+        RetrofitUtils.getAsync(Urls.api_homepage_banner, param, new HttpResponseListener<List<HomeBannerBean>>() {
             @Override
             public void onResponse(List<HomeBannerBean> homeBannerBeans) {
                 for (HomeBannerBean bannerBean : homeBannerBeans) {

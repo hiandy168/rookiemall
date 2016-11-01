@@ -5,14 +5,15 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
 import com.itheima.rookiemall.bean.AddressListBean;
 import com.itheima.rookiemall.bean.BaseBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.utils.SPUtils;
@@ -91,7 +92,7 @@ public class AddressListFragment extends BaseFragment {
         Map<String, Object> param = new HashMap<>();
         param.put(Constants.USER_ID, SPUtils.getUserId(mContext));
         param.put(Constants.TOKEN, SPUtils.getToken(mContext));
-        HttpHelper.getInstance().get(Urls.api_address_list, param, new HttpResponseCall<List<AddressListBean>>() {
+        RetrofitUtils.getAsync(Urls.api_address_list, param, new HttpResponseListener<List<AddressListBean>>() {
             @Override
             public void onResponse(List<AddressListBean> addressListBean) {
                 new BaseRecyclerAdapter<AddressListBean>(mRecyclerView, R.layout.item_fragment_address_list, addressListBean);
@@ -123,7 +124,7 @@ public class AddressListFragment extends BaseFragment {
             param.put(Constants.USER_ID, SPUtils.getUserId(mContext));
             param.put(Constants.TOKEN, SPUtils.getToken(mContext));
             param.put("id", mData.id);
-            HttpHelper.getInstance().get(Urls.api_del_address, param, new HttpResponseCall<BaseBean>() {
+            RetrofitUtils.getAsync(Urls.api_del_address, param, new HttpResponseListener<BaseBean>() {
                 @Override
                 public void onResponse(BaseBean baseBean) {
                     UIUtils.showDefToast(mContext, baseBean.message);

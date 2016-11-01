@@ -6,11 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.bean.LoginBean;
-import com.itheima.rookiemall.call.HttpResponseCall;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.ui.App;
@@ -105,7 +106,7 @@ public class LoginFragment extends BaseFragment {
         Map<String, Object> param = new HashMap<>();
         param.put("phone", phone);
         param.put("password", DESUtil.encode(Constants.DES_KEY, pass));
-        HttpHelper.getInstance().post(Urls.api_login, param, new HttpResponseCall<LoginBean>() {
+        RetrofitUtils.postAsync(Urls.api_login, param, new HttpResponseListener<LoginBean>() {
             @Override
             public void onResponse(LoginBean loginBean) {
                 if (loginBean.isSuccess()) {

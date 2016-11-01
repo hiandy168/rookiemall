@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.itheima.retrofitutils.HttpHelper;
+import com.itheima.retrofitutils.HttpResponseListener;
+import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
-import com.itheima.rookiemall.api.HttpHelper;
 import com.itheima.rookiemall.base.BaseFragment;
-import com.itheima.rookiemall.bean.SubmitOrderBean;
 import com.itheima.rookiemall.bean.ShoppingCar;
-import com.itheima.rookiemall.call.HttpResponseCall;
+import com.itheima.rookiemall.bean.SubmitOrderBean;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
 import com.itheima.rookiemall.utils.CarProvider;
@@ -21,13 +22,11 @@ import com.itheima.rookiemall.utils.SPUtils;
 import com.pingplusplus.android.PaymentActivity;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -123,7 +122,7 @@ public class SubmitOrderFragment extends BaseFragment {
         L.i("httpPlayOrder param:" + param.toString());
 
 
-        HttpHelper.getInstance().post(Urls.api_cretae_order, param, new HttpResponseCall<SubmitOrderBean>() {
+        RetrofitUtils.postAsync(Urls.api_cretae_order, param, new HttpResponseListener<SubmitOrderBean>() {
             @Override
             public void onResponse(SubmitOrderBean orderBean) {
                 L.i("onResponse  SubmitOrderBean: " + orderBean.toString());
