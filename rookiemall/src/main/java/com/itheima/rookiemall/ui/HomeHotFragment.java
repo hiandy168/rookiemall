@@ -51,7 +51,7 @@ public class HomeHotFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        mPullMoreView = new PullToLoadMoreRecyclerView<HomeHotBean>(mSwipeRefreshLayout, mRecyclerView) {
+        mPullMoreView = new PullToLoadMoreRecyclerView<HomeHotBean>(mSwipeRefreshLayout, mRecyclerView, HomeHotViewHolder.class) {
 
             @Override
             public String getApi() {

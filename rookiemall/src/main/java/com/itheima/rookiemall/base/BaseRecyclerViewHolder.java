@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.itheima.rookiemall.utils.L;
+
 import butterknife.ButterKnife;
 
 /**
@@ -34,4 +36,5 @@ public abstract class BaseRecyclerViewHolder<T> extends RecyclerView.ViewHolder 
     }
 
     protected abstract void onBindRealData();
+
 }

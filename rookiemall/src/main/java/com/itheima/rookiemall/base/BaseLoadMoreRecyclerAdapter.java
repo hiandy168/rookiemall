@@ -17,15 +17,15 @@ import butterknife.BindView;
  * Created by lyl on 2016/10/7.
  */
 
-public class BaseLoadMoreRecyclerAdapter<T> extends BaseRecyclerAdapter<T> {
+public class BaseLoadMoreRecyclerAdapter extends BaseRefRecyclerAdapter {
     //加载更多类型
     protected final int FOOT_TYPE = 10;
 
     protected PullToMoreListener mPullAndMoreListener;
 
 
-    public BaseLoadMoreRecyclerAdapter(RecyclerView recyclerView, int itemResId, List datas) {
-        super(recyclerView, itemResId, datas);
+    public BaseLoadMoreRecyclerAdapter(RecyclerView recyclerView, Class<? extends BaseRecyclerViewHolder> viewHolderClazz, int itemResId, List datas) {
+        super(recyclerView, viewHolderClazz, itemResId, datas);
     }
 
     @Override

@@ -18,8 +18,8 @@ import com.itheima.retrofitutils.HttpResponseListener;
 import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseFragment;
-import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
+import com.itheima.rookiemall.base.BaseRefRecyclerAdapter;
 import com.itheima.rookiemall.bean.HomeBannerBean;
 import com.itheima.rookiemall.bean.HomeListsBean;
 import com.itheima.rookiemall.config.Urls;
@@ -89,7 +89,7 @@ public class HomeFragment extends BaseFragment {
     public void httpBanner() {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("type", "1");
-        mBannerCall = RetrofitUtils.getAsync( Urls.api_homepage_banner, paramMap, new HttpResponseListener<List<HomeBannerBean>>() {
+        mBannerCall = RetrofitUtils.getAsync(Urls.api_homepage_banner, paramMap, new HttpResponseListener<List<HomeBannerBean>>() {
             @Override
             public void onResponse(List<HomeBannerBean> homeBannerBeans) {
                 for (HomeBannerBean bannerBean : homeBannerBeans) {
@@ -114,12 +114,12 @@ public class HomeFragment extends BaseFragment {
 
     }
 
-    class HomeAdapter extends BaseRecyclerAdapter<HomeListsBean> {
+    class HomeAdapter extends BaseRefRecyclerAdapter {
         private final int ITEM_RIGHT = 0;
         private final int ITEM_LEFT = 1;
 
-        public HomeAdapter(RecyclerView recyclerView, List<HomeListsBean> datas) {
-            super(recyclerView, 0, datas);
+        public HomeAdapter(RecyclerView recyclerView, List datas) {
+            super(recyclerView, null, 0, datas);
         }
 
         @Override

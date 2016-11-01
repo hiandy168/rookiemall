@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.itheima.retrofitutils.HttpHelper;
 import com.itheima.retrofitutils.HttpResponseListener;
 import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
+import com.itheima.rookiemall.base.BaseRefRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseFragment;
-import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
 import com.itheima.rookiemall.bean.HomeBannerBean;
 import com.itheima.rookiemall.bean.HomeHotBean;
@@ -57,7 +56,7 @@ public class HomeTypeFragment extends BaseFragment {
     SliderLayout mSliderLayout;
 
     Call mCall;
-    private BaseRecyclerAdapter mLeftAdapter;
+    private BaseRefRecyclerAdapter mLeftAdapter;
     private PullToLoadMoreRecyclerView mPullToLoadMoreRecyclerView;
 
     @Override
@@ -78,7 +77,7 @@ public class HomeTypeFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        mPullToLoadMoreRecyclerView = new PullToLoadMoreRecyclerView<HomeHotBean>(mSwipeRefreshLayout, mRightRecyclerView) {
+        mPullToLoadMoreRecyclerView = new PullToLoadMoreRecyclerView<HomeHotBean>(mSwipeRefreshLayout, mRightRecyclerView, MyRightViewHolder.class) {
             @Override
             public int getItemResId() {
                 return R.layout.item_hometype_right_recylerview;
@@ -89,18 +88,10 @@ public class HomeTypeFragment extends BaseFragment {
                 return Urls.api_hometype_right_lists;
             }
         };
-
-//        mSliderLayout = new SliderLayout(mContext);
-//        mSliderLayout.setClickable(true);
-//        mSliderLayout.setLayoutParams(new RelativeLayout.LayoutParams(-1, SizeUtils.dp2px(mContext, 120)));
-//        mPullToLoadMoreRecyclerView.addHeader(mSliderLayout);
-
     }
 
     @Override
     public void initData() {
-//        mRightAdapter = new BaseRecyclerAdapter(mGridRecyclerView, R.layout.item_hometype_right_recylerview, null);
-//        requestLeftData();
         requestLeftData();
         requestBanner();
 
@@ -116,7 +107,8 @@ public class HomeTypeFragment extends BaseFragment {
         mCall = RetrofitUtils.getAsync(Urls.api_hometype_left_lists, null, new HttpResponseListener<List<LeftBean>>() {
             @Override
             public void onResponse(List<LeftBean> leftBeen) {
-                mLeftAdapter = new BaseRecyclerAdapter(mLeftRecyclerView, R.layout.item_hometype_left, leftBeen);
+                mLeftAdapter = new BaseRefRecyclerAdapter(mLeftRecyclerView, MyLeftViewHolder.class, R.layout.item_hometype_left, leftBeen);
+
                 requestRightData(leftBeen.get(0).id);
             }
         });
@@ -193,6 +185,7 @@ public class HomeTypeFragment extends BaseFragment {
             EventBus.getDefault().post(mData.id);
 
         }
+
     }
 
 

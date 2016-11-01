@@ -6,13 +6,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.itheima.retrofitutils.HttpHelper;
 import com.itheima.retrofitutils.HttpResponseListener;
 import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseFragment;
-import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
+import com.itheima.rookiemall.base.BaseRefRecyclerAdapter;
 import com.itheima.rookiemall.bean.MyOrderBean;
 import com.itheima.rookiemall.config.Constants;
 import com.itheima.rookiemall.config.Urls;
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import retrofit2.Call;
 
 /**
  * 我的订单
@@ -40,7 +40,7 @@ public class MyOrderFragment extends BaseFragment {
     private final String[] mTitles = {"全部", "支付成功", "代支付", "支付失败"};
     //订单状态
     int mStatus = 2;
-    private BaseRecyclerAdapter<MyOrderBean> mMyOrderAdapter;
+    private BaseRefRecyclerAdapter mMyOrderAdapter;
 
 
     @Override
@@ -81,7 +81,7 @@ public class MyOrderFragment extends BaseFragment {
             @Override
             public void onResponse(List<MyOrderBean> myOrderBean) {
                 if (mMyOrderAdapter == null) {
-                    mMyOrderAdapter = new BaseRecyclerAdapter<>(mRecyclerView, R.layout.item_my_orders_list, myOrderBean);
+                    mMyOrderAdapter = new BaseRefRecyclerAdapter(mRecyclerView, MyOrderViewHolder.class, R.layout.item_my_orders_list, myOrderBean);
                 } else {
                     mMyOrderAdapter.addDatas(false, myOrderBean);
                 }
@@ -140,7 +140,7 @@ public class MyOrderFragment extends BaseFragment {
 
         public MyOrderViewHolder(ViewGroup parentView, int itemResId) {
             super(parentView, itemResId);
-            mGridAdapter = new GridAdapter(mGridView, R.layout.my_imageview, null);
+            mGridAdapter = new GridAdapter(mGridView, null, R.layout.my_imageview, null);
         }
 
         @Override
@@ -152,9 +152,9 @@ public class MyOrderFragment extends BaseFragment {
 
         }
 
-        class GridAdapter extends BaseRecyclerAdapter<MyOrderBean.Items> {
-            public GridAdapter(RecyclerView recyclerView, int itemResId, List<MyOrderBean.Items> datas) {
-                super(recyclerView, itemResId, datas);
+        class GridAdapter extends BaseRefRecyclerAdapter {
+            public GridAdapter(RecyclerView recyclerView, Class<? extends BaseRecyclerViewHolder> viewHolderClazz, int itemResId, List datas) {
+                super(recyclerView, viewHolderClazz, itemResId, datas);
             }
 
             @Override

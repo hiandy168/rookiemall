@@ -9,6 +9,7 @@ import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseFragment;
 import com.itheima.rookiemall.bean.HomeHotBean;
 import com.itheima.rookiemall.config.Urls;
+import com.itheima.rookiemall.ui.HomeHotFragment;
 import com.itheima.rookiemall.utils.UIUtils;
 import com.itheima.rookiemall.widget.CustomRecyclerView;
 import com.itheima.rookiemall.widget.CustomToolBar;
@@ -76,7 +77,7 @@ public class GoodsListDetailsFragment extends BaseFragment {
             mTabLayout.addTab(mTabLayout.newTab().setText(tabTxt));
         }
 
-        mPullMoreView = new PullToLoadMoreRecyclerView<HomeHotBean>( mSwipeRefreshLayout, mRecyclerView) {
+        mPullMoreView = new PullToLoadMoreRecyclerView<HomeHotBean>(mSwipeRefreshLayout, mRecyclerView, HomeHotFragment.HomeHotViewHolder.class) {
             @Override
             public int getItemResId() {
                 return R.layout.item_homehot_recylcerview;

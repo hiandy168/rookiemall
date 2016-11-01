@@ -7,6 +7,7 @@ import com.itheima.retrofitutils.HttpResponseListener;
 import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseLoadMoreRecyclerAdapter;
+import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
 import com.itheima.rookiemall.bean.BasePageBean;
 import com.itheima.rookiemall.call.PullToMoreListener;
 
@@ -17,7 +18,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 /**
- * 
  * Created by lyl on 2016/10/7.
  */
 
@@ -25,10 +25,12 @@ public abstract class PullToLoadMoreRecyclerView<HttpResponseBean extends BasePa
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CustomRecyclerView mRecyclerView;
+    private Class<? extends BaseRecyclerViewHolder> mViewHolderClazz;
 
-    public PullToLoadMoreRecyclerView(SwipeRefreshLayout swipeRefreshLayout, CustomRecyclerView recyclerView) {
+    public PullToLoadMoreRecyclerView(SwipeRefreshLayout swipeRefreshLayout, CustomRecyclerView recyclerView, Class<? extends BaseRecyclerViewHolder> viewHolderClazz) {
         mSwipeRefreshLayout = swipeRefreshLayout;
         mRecyclerView = recyclerView;
+        mViewHolderClazz = viewHolderClazz;
         initView();
         initData();
     }
@@ -46,7 +48,7 @@ public abstract class PullToLoadMoreRecyclerView<HttpResponseBean extends BasePa
 
 
     protected void initData() {
-        mLoadMoreRecyclerViewAdapter = new BaseLoadMoreRecyclerAdapter(mRecyclerView, getItemResId(), null);
+        mLoadMoreRecyclerViewAdapter = new BaseLoadMoreRecyclerAdapter(mRecyclerView, mViewHolderClazz, getItemResId(), null);
         mLoadMoreRecyclerViewAdapter.setPullAndMoreListener(this);
     }
 

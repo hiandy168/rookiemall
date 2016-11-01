@@ -10,8 +10,8 @@ import com.itheima.retrofitutils.HttpResponseListener;
 import com.itheima.retrofitutils.RetrofitUtils;
 import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseFragment;
-import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
+import com.itheima.rookiemall.base.BaseRefRecyclerAdapter;
 import com.itheima.rookiemall.bean.AddressListBean;
 import com.itheima.rookiemall.bean.BaseBean;
 import com.itheima.rookiemall.config.Constants;
@@ -95,7 +95,10 @@ public class AddressListFragment extends BaseFragment {
         RetrofitUtils.getAsync(Urls.api_address_list, param, new HttpResponseListener<List<AddressListBean>>() {
             @Override
             public void onResponse(List<AddressListBean> addressListBean) {
-                new BaseRecyclerAdapter<AddressListBean>(mRecyclerView, R.layout.item_fragment_address_list, addressListBean);
+                new BaseRefRecyclerAdapter(mRecyclerView
+                        , AddressListViewHolder.class
+                        , R.layout.item_fragment_address_list
+                        , addressListBean);
             }
         });
     }

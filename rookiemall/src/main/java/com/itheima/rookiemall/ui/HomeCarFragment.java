@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.itheima.rookiemall.R;
 import com.itheima.rookiemall.base.BaseActivity;
 import com.itheima.rookiemall.base.BaseFragment;
-import com.itheima.rookiemall.base.BaseRecyclerAdapter;
 import com.itheima.rookiemall.base.BaseRecyclerViewHolder;
+import com.itheima.rookiemall.base.BaseRefRecyclerAdapter;
 import com.itheima.rookiemall.bean.ShoppingCar;
 import com.itheima.rookiemall.utils.CarProvider;
 import com.itheima.rookiemall.utils.UIUtils;
@@ -53,7 +53,7 @@ public class HomeCarFragment extends BaseFragment implements View.OnClickListene
     @BindView(R.id.tv_delete)
     TextView tvDelete;
 
-    BaseRecyclerAdapter mCarRecyclerAdapter;
+    BaseRefRecyclerAdapter mCarRecyclerAdapter;
 
     boolean isShowDeleteView;
 
@@ -80,7 +80,7 @@ public class HomeCarFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void initData() {
-        mCarRecyclerAdapter = new BaseRecyclerAdapter<ShoppingCar>(mRecyclerView, R.layout.item_home_car_recyclerview, null);
+        mCarRecyclerAdapter = new BaseRefRecyclerAdapter(mRecyclerView, MyCarRecyclerViewHolder.class, R.layout.item_home_car_recyclerview, null);
     }
 
     @Override
